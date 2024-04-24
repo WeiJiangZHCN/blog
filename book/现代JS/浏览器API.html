@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>迭代器 - 众星</title>
+        <title>浏览器API - 众星</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../碎碎念.html">碎碎念</a></li><li class="chapter-item expanded affix "><a href="../前言.html">前言</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="../现代CSS.html"><strong aria-hidden="true">1.</strong> 现代CSS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代CSS/伪类选择器.html"><strong aria-hidden="true">1.1.</strong> 伪类选择器</a></li><li class="chapter-item expanded "><a href="../现代CSS/常用数据类型.html"><strong aria-hidden="true">1.2.</strong> 常用数据类型</a></li></ol></li><li class="chapter-item expanded "><a href="../现代JS.html"><strong aria-hidden="true">2.</strong> 现代JS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代JS/基础语法.html"><strong aria-hidden="true">2.1.</strong> 基础语法</a></li><li class="chapter-item expanded "><a href="../现代JS/V8是如何工作的.html"><strong aria-hidden="true">2.2.</strong> V8是如何工作的</a></li><li class="chapter-item expanded "><a href="../现代JS/JS代码执行机制.html"><strong aria-hidden="true">2.3.</strong> JS代码执行机制</a></li><li class="chapter-item expanded "><a href="../现代JS/迭代器.html" class="active"><strong aria-hidden="true">2.4.</strong> 迭代器</a></li><li class="chapter-item expanded "><a href="../现代JS/浏览器API.html"><strong aria-hidden="true">2.5.</strong> 浏览器API</a></li></ol></li><li class="chapter-item expanded "><a href="../实用的TS.html"><strong aria-hidden="true">3.</strong> 实用的TS</a></li><li class="chapter-item expanded "><a href="../现代语言Rust.html"><strong aria-hidden="true">4.</strong> 现代语言Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代语言Rust/网络编程.html"><strong aria-hidden="true">4.1.</strong> 网络编程</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../杂谈.html">杂谈</a></li><li class="chapter-item expanded affix "><a href="../rust是否能深入内核？.html">rust是否能深入内核？</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../碎碎念.html">碎碎念</a></li><li class="chapter-item expanded affix "><a href="../前言.html">前言</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="../现代CSS.html"><strong aria-hidden="true">1.</strong> 现代CSS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代CSS/伪类选择器.html"><strong aria-hidden="true">1.1.</strong> 伪类选择器</a></li><li class="chapter-item expanded "><a href="../现代CSS/常用数据类型.html"><strong aria-hidden="true">1.2.</strong> 常用数据类型</a></li></ol></li><li class="chapter-item expanded "><a href="../现代JS.html"><strong aria-hidden="true">2.</strong> 现代JS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代JS/基础语法.html"><strong aria-hidden="true">2.1.</strong> 基础语法</a></li><li class="chapter-item expanded "><a href="../现代JS/V8是如何工作的.html"><strong aria-hidden="true">2.2.</strong> V8是如何工作的</a></li><li class="chapter-item expanded "><a href="../现代JS/JS代码执行机制.html"><strong aria-hidden="true">2.3.</strong> JS代码执行机制</a></li><li class="chapter-item expanded "><a href="../现代JS/迭代器.html"><strong aria-hidden="true">2.4.</strong> 迭代器</a></li><li class="chapter-item expanded "><a href="../现代JS/浏览器API.html" class="active"><strong aria-hidden="true">2.5.</strong> 浏览器API</a></li></ol></li><li class="chapter-item expanded "><a href="../实用的TS.html"><strong aria-hidden="true">3.</strong> 实用的TS</a></li><li class="chapter-item expanded "><a href="../现代语言Rust.html"><strong aria-hidden="true">4.</strong> 现代语言Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../现代语言Rust/网络编程.html"><strong aria-hidden="true">4.1.</strong> 网络编程</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../杂谈.html">杂谈</a></li><li class="chapter-item expanded affix "><a href="../rust是否能深入内核？.html">rust是否能深入内核？</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,43 +171,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="迭代器"><a class="header" href="#迭代器">迭代器</a></h1>
-<p>看个例子</p>
-<pre><code class="language-JS">function iter() {
-    return {
-        next:()=&gt; {
-            return this.min &lt; this.max 
-            ? {value:this.min++,done:false} 
-            : {value:undefined,done:true}
-        }
-    }
-}//生成迭代器对象
-let obj = {
-    min:1,
-    max:10,
-    [Symbol.iterator]:iter//将生成迭代器对象的函数添加到对象上
-}
-for (let i of obj) {
-    console.log(i)
-}
+                        <h1 id="浏览器api"><a class="header" href="#浏览器api">浏览器API</a></h1>
+<p>非常繁杂，建议大致了解，然后按需寻找</p>
+<h2 id="stream"><a class="header" href="#stream">Stream</a></h2>
+<p>流，编程中比较重要的概念。方便了大文件的传输和解析。比如传过来30%的图片，我们就先显示30%的图片。视频亦然。</p>
+<h2 id="url"><a class="header" href="#url">URL</a></h2>
+<pre><code class="language-JS">
+
 </code></pre>
-<h2 id="迭代器对象"><a class="header" href="#迭代器对象">迭代器对象</a></h2>
-<p>上面iter()函数返回的是一个迭代器对象。<br />
-for of 循环会调用对象的[Symbol.iterator]方法生成迭代器对象，然后根据迭代器对象开始迭代。<br />
-迭代器对象具有next方法，调用next方法返回一个对象，对象有两个属性value和done。<br />
-value是迭代器返回的值，done是迭代器是否结束。</p>
-<h2 id="内置迭代器的对象"><a class="header" href="#内置迭代器的对象">内置迭代器的对象</a></h2>
-<p>String, Array, TypedArray, Map and Set 是所有内置可迭代对象。</p>
+<h2 id="file"><a class="header" href="#file">File</a></h2>
+<h2 id="formdata"><a class="header" href="#formdata">FormData</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../现代JS/JS代码执行机制.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../现代JS/迭代器.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../现代JS/浏览器API.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../实用的TS.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -217,11 +200,11 @@ value是迭代器返回的值，done是迭代器是否结束。</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../现代JS/JS代码执行机制.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../现代JS/迭代器.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../现代JS/浏览器API.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../实用的TS.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
