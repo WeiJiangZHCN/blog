@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="碎碎念.html">碎碎念</a></li><li class="chapter-item expanded affix "><a href="前言.html">前言</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="现代CSS.html"><strong aria-hidden="true">1.</strong> 现代CSS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代CSS/伪类选择器.html"><strong aria-hidden="true">1.1.</strong> 伪类选择器</a></li><li class="chapter-item expanded "><a href="现代CSS/常用数据类型.html"><strong aria-hidden="true">1.2.</strong> 常用数据类型</a></li></ol></li><li class="chapter-item expanded "><a href="现代JS.html"><strong aria-hidden="true">2.</strong> 现代JS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代JS/基础语法.html"><strong aria-hidden="true">2.1.</strong> 基础语法</a></li><li class="chapter-item expanded "><a href="现代JS/V8是如何工作的.html"><strong aria-hidden="true">2.2.</strong> V8是如何工作的</a></li><li class="chapter-item expanded "><a href="现代JS/JS代码执行机制.html"><strong aria-hidden="true">2.3.</strong> JS代码执行机制</a></li><li class="chapter-item expanded "><a href="现代JS/迭代器.html"><strong aria-hidden="true">2.4.</strong> 迭代器</a></li><li class="chapter-item expanded "><a href="现代JS/浏览器API.html"><strong aria-hidden="true">2.5.</strong> 浏览器API</a></li></ol></li><li class="chapter-item expanded "><a href="实用的TS.html"><strong aria-hidden="true">3.</strong> 实用的TS</a></li><li class="chapter-item expanded "><a href="现代语言Rust.html"><strong aria-hidden="true">4.</strong> 现代语言Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代语言Rust/网络编程.html"><strong aria-hidden="true">4.1.</strong> 网络编程</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="杂谈.html">杂谈</a></li><li class="chapter-item expanded affix "><a href="rust是否能深入内核？.html">rust是否能深入内核？</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="碎碎念.html">碎碎念</a></li><li class="chapter-item expanded affix "><a href="前言.html">前言</a></li><li class="spacer"></li><li class="chapter-item expanded "><a href="现代CSS.html"><strong aria-hidden="true">1.</strong> 现代CSS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代CSS/伪类选择器.html"><strong aria-hidden="true">1.1.</strong> 伪类选择器</a></li><li class="chapter-item expanded "><a href="现代CSS/常用数据类型.html"><strong aria-hidden="true">1.2.</strong> 常用数据类型</a></li></ol></li><li class="chapter-item expanded "><a href="现代JS.html"><strong aria-hidden="true">2.</strong> 现代JS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代JS/基础语法.html"><strong aria-hidden="true">2.1.</strong> 基础语法</a></li><li class="chapter-item expanded "><a href="现代JS/V8是如何工作的.html"><strong aria-hidden="true">2.2.</strong> V8是如何工作的</a></li><li class="chapter-item expanded "><a href="现代JS/JS代码执行机制.html"><strong aria-hidden="true">2.3.</strong> JS代码执行机制</a></li><li class="chapter-item expanded "><a href="现代JS/迭代器.html"><strong aria-hidden="true">2.4.</strong> 迭代器</a></li><li class="chapter-item expanded "><a href="现代JS/浏览器API.html"><strong aria-hidden="true">2.5.</strong> 浏览器API</a></li><li class="chapter-item expanded "><a href="现代JS/Fetch().html"><strong aria-hidden="true">2.6.</strong> Fetch()</a></li></ol></li><li class="chapter-item expanded "><a href="实用的TS.html"><strong aria-hidden="true">3.</strong> 实用的TS</a></li><li class="chapter-item expanded "><a href="现代语言Rust.html"><strong aria-hidden="true">4.</strong> 现代语言Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="现代语言Rust/网络编程.html"><strong aria-hidden="true">4.1.</strong> 网络编程</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="杂谈.html">杂谈</a></li><li class="chapter-item expanded affix "><a href="rust是否能深入内核？.html">rust是否能深入内核？</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -391,6 +391,34 @@ value是迭代器返回的值，done是迭代器是否结束。</p>
 </code></pre>
 <h2 id="file"><a class="header" href="#file">File</a></h2>
 <h2 id="formdata"><a class="header" href="#formdata">FormData</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fetch"><a class="header" href="#fetch">Fetch()</a></h1>
+<p>Fetch API 提供了一个 JavaScript 接口，用于访问和操纵 HTTP 管道的一些具体部分，例如请求和响应。它还提供了一个全局 fetch() 方法，该方法提供了一种简单，合理的方式来跨网络异步获取资源。</p>
+<pre><code class="language-JS">syntax:fetch(url, options)
+async function fetchData() {
+    const response = await fetch('https://api.github.com/users/octocat');
+    return await response.json();//也可以是blob(),formData(),text(),arrayBuffer()。
+}
+
+</code></pre>
+<h2 id="流式获取"><a class="header" href="#流式获取">流式获取</a></h2>
+<pre><code class="language-JS">async function* streamAsyncIterable(stream){
+     const reader = stream.getReader();
+        while(true){
+            const {done,value} = await reader.read();
+            if(done){
+                return;
+            }
+            yield value;
+        }
+    }
+async function fetchData() {
+    const response = await fetch('http://47.121.25.246/');
+    for await (let i of streamAsyncIterable(response.body)){
+        console.log(i);//chunk
+    }
+}
+fetchData();
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="实用的ts"><a class="header" href="#实用的ts">实用的TS</a></h1>
 <p>静态类型与动态类型孰优孰劣？<br />
 这个答案没有结果。<br />

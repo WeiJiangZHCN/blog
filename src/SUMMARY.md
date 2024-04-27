@@ -16,6 +16,7 @@
   - [JS代码执行机制](./现代JS/JS代码执行机制.md)
   - [迭代器](./现代JS/迭代器.md)
   - [浏览器API](./现代JS/浏览器API.md)
+  - [Fetch()](./现代JS/Fetch().md)
 - [实用的TS](./实用的TS.md)
 
 - [现代语言Rust](./现代语言Rust.md)
