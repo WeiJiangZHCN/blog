@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ] # 无论你的主分支叫 main 还是 master，都会触发
-  workflow_dispatch: # 允许你在网页端手动点按钮触发
+    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,19 +16,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 初始化 Node 环境
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: ${{ hashFiles('package-lock.json') ? 'npm' : hashFiles('pnpm-lock.yaml') ? 'pnpm' : 'yarn' }}
-
-      # 3. 兼容 pnpm 环境（Astro 主题很常用，如果不用会自动跳过）
+      # 2. 如果存在 pnpm-lock.yaml，则提前安装 pnpm
       - name: Install pnpm
         if: hashFiles('pnpm-lock.yaml') != ''
         uses: pnpm/action-setup@v3
         with:
           version: 8
+
+      # 3. 初始化 Node 环境（使用独立的条件判断来做缓存，防止 YAML 语法报错）
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: ${{ hashFiles('pnpm-lock.yaml') != '' && 'pnpm' || hashFiles('package-lock.json') != '' && 'npm' || hashFiles('yarn.lock') != '' && 'yarn' || '' }}
 
       # 4. 智能安装依赖
       - name: Install dependencies
@@ -49,4 +49,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # Astro、VitePress 默认输出为 ./dist；如果是 Hexo 请改成 ./public
+          publish_dir: ./dist
