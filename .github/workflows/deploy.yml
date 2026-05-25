@@ -5,6 +5,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+# 显式注入环境变量，提前强制 Actions 引擎注入 Node.js 24 运行环境
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
@@ -16,18 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 如果存在 pnpm-lock.yaml，则提前安装 pnpm
+      # 2. 安装并升级 pnpm 官方 action 到 v4 版本（完美原生支持 Node 24）
       - name: Install pnpm
         if: hashFiles('pnpm-lock.yaml') != ''
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9 # 顺便升级到更稳定的 pnpm v9
 
-      # 3. 初始化 Node 环境（使用独立的条件判断来做缓存，防止 YAML 语法报错）
+      # 3. 初始化 Node 环境（使用 Node 24 核心）
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: ${{ hashFiles('pnpm-lock.yaml') != '' && 'pnpm' || hashFiles('package-lock.json') != '' && 'npm' || hashFiles('yarn.lock') != '' && 'yarn' || '' }}
 
       # 4. 智能安装依赖
@@ -44,7 +48,7 @@ jobs:
           elif [ -f yarn.lock ]; then yarn build;
           else npm run build; fi
 
-      # 6. 将打包出来的静态资源部署到当前仓库的 gh-pages 分支
+      # 6. 部署到 gh-pages 分支
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
