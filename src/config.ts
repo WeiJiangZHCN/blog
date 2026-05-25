@@ -1,7 +1,7 @@
 export default {
   site: {
     title: "Ching Sheng's Blog",
-    subtitle: "My Blog Subtitle",
+    subtitle: "Endless life, infinite return",
     description: "Ching Sheng's blog",
     keywords: "Ching Sheng, blog, record, god",
     author: "Ching Sheng",
