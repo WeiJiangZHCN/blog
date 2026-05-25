@@ -5,7 +5,6 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
-# 显式注入环境变量，提前强制 Actions 引擎注入 Node.js 24 运行环境
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -20,14 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 安装并升级 pnpm 官方 action 到 v4 版本（完美原生支持 Node 24）
+      # 2. 安装 pnpm（不指定版本，自动读取 package.json 中的 packageManager 字段）
       - name: Install pnpm
         if: hashFiles('pnpm-lock.yaml') != ''
         uses: pnpm/action-setup@v4
-        with:
-          version: 9 # 顺便升级到更稳定的 pnpm v9
 
-      # 3. 初始化 Node 环境（使用 Node 24 核心）
+      # 3. 初始化 Node 环境
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
