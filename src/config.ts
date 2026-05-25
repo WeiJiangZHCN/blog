@@ -1,10 +1,10 @@
 export default {
   site: {
-    title: "My Blog",
+    title: "Ching Sheng's Blog",
     subtitle: "My Blog Subtitle",
-    description: "D-Sketon's blog",
-    keywords: "D-Sketon, blog, astro, theme",
-    author: "D-Sketon",
+    description: "Ching Sheng's blog",
+    keywords: "Ching Sheng, blog, record, god",
+    author: "Ching Sheng",
     language: "zh-CN",
   },
 
@@ -36,7 +36,7 @@ export default {
   },
 
   footer: {
-    since: 2020, // 2020 - current year
+    since: 2026, // 2026 - current year
     powered: true,
     count: true,
     busuanzi: true,
@@ -57,11 +57,11 @@ export default {
   },
 
   social: {
-    // email: mailto:xxx@gmail.com
+    email: "mailto:2363322745@qq.com",
     github: "https://github.com/yourname",
-    google: "https://plus.google.com/yourname",
-    twitter: "https://twitter.com/yourname",
-    facebook: "https://www.facebook.com/yourname",
+    // google: "https://plus.google.com/yourname",
+    // twitter: "https://twitter.com/yourname",
+    // facebook: "https://www.facebook.com/yourname",
     // instagram: https://www.instagram.com/yourname
     // linkedin: https://www.linkedin.com/in/yourname
     // pinterest: https://www.pinterest.com/yourname
