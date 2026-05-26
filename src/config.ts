@@ -168,9 +168,9 @@ export default {
 
   friend: [
     {
-      name: "D-Sketon",
+      name: "清心交易",
       url: "https://d-sketon.github.io/",
-      desc: "Main Site with hexo-theme-reimu",
+      desc: "用户可以自由创建基金，自由组合策略库，构建属于自己的策略",
       avatar: "https://d-sketon.github.io/avatar/avatar.webp",
     },
   ],
